@@ -1,0 +1,24 @@
+# https://github.com/butomo1989/docker-appium
+# https://hub.docker.com/r/butomo1989/docker-appium/
+version: '3.1'
+services:
+  bmp:
+    image: raul72/browsermob-proxy
+    restart: on-failure
+    environment:
+      BMP_PORT: 9090
+  hub:
+    image: selenium/standalone-chrome-debug
+    restart: on-failure
+    ports:
+      - 5900:5900
+    environment:
+      TZ: /usr/share/zoneinfo/Europe/Madrid
+  worker:
+    image: oprietop/robotframework
+    restart: on-failure
+    volumes:
+      - ./robot:/robot
+    environment:
+      TZ: /usr/share/zoneinfo/Europe/Madrid
+    command: sh
