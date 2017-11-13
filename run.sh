@@ -6,6 +6,7 @@ which $BIN || { echo "Faltan binarios!";  exit 1;}
 
 echo "# Executing compose"
 docker-compose down
+docker-compose pull
 docker-compose up -d
 
 while true; do

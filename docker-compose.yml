@@ -7,13 +7,17 @@ services:
     restart: on-failure
     environment:
       BMP_PORT: 9090
+      BMP_PROXY_TTL: 60
   hub:
     image: selenium/standalone-chrome-debug
     restart: on-failure
+    privileged: true
     ports:
       - 5900:5900
     environment:
       TZ: /usr/share/zoneinfo/Europe/Madrid
+    volumes:
+      -  /dev/shm:/dev/shm
   worker:
     image: oprietop/robotframework
     restart: on-failure
@@ -22,3 +26,4 @@ services:
     environment:
       TZ: /usr/share/zoneinfo/Europe/Madrid
     command: sh
+    working_dir: /robot
